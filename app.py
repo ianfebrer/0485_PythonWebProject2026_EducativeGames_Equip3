@@ -1,9 +1,11 @@
-from flask import Flask
+from flask import Flask, render_template
+
 app = Flask(__name__)
 
 @app.route('/')
-def inici():
-    return "L'aplicació de Flask funciona!"
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # El host 0.0.0.0 es necesario para que funcione en tu servidor Oracle
+    app.run(debug=True, host='0.0.0.0', port=5000)
