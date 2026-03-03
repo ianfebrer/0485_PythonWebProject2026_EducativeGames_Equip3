@@ -1,7 +1,5 @@
 # 0485_PythonWebProject2026_EducativeGames_Equip3
 
-Aquí tens el contingut de la captura de pantalla estructurat en format **Markdown**, ideal per al teu fitxer `README.md`. He organitzat la part del Backend i Frontend en una taula per mantenir l'estructura visual de l'original.
-
 ---
 
 # 1️⃣ Educative games (objectiu educatiu)
