@@ -1,22 +1,31 @@
+from werkzeug.security import generate_password_hash, check_password_hash
+
 class User:
-    def __init__(self, username, password, total_score=0):
-        # Inicialització de l'usuari amb el seu nom, contrasenya i puntuació inicial
+    def __init__(self, username, password, total_score=0, is_hashed=False):
+        # Inicialització de l'usuari amb el seu nom i puntuació inicial
         self.username = username
-        self.password = password
         self.total_score = total_score
+        
+        # Si la contrasenya ja ve encriptada (per exemple, quan la llegim del JSON)
+        if is_hashed:
+            self.password = password
+        else:
+            # Si és un usuari nou, encriptem la contrasenya abans de guardar-la
+            self.password = generate_password_hash(password)
+
+    def check_password(self, password_attempt):
+        # Comprova si la contrasenya introduïda coincideix amb el hash guardat
+        return check_password_hash(self.password, password_attempt)
 
     def add_score(self, points):
-        # Mètode per sumar punts a la puntuació acumulada de l'usuari
         self.total_score += points
 
     def to_dict(self):
-        # Converteix l'objecte en un diccionari per poder guardar-lo en format JSON
         return {
             "username": self.username,
-            "password": self.password,
+            "password": self.password, # Ara es guardarà en format encriptat
             "total_score": self.total_score
         }
 
     def __str__(self):
-        # Representació en text de l'objecte usuari
         return f"User: {self.username} | Total Score: {self.total_score}"
