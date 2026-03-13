@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Xampinyó's League</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="description" content="The Xampinyó's League - Educative games for learning geometric shapes and colors.">
+    <title>{% block title %}The Xampinyó's League{% endblock %}</title>
+    <!-- Modern Font: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block extra_css %}{% endblock %}
 </head>
 
 <body>
     <header>
         <nav>
-            <div class="logo">🍄 Xampinyó's League</div>
+            <a href="{{ url_for('index') }}" class="logo">
+                <span class="logo-emoji">🍄</span> Xampinyó's League
+            </a>
             <ul>
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="#">Ranking</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('index') }}">Inici</a></li>
+                <!-- Aquestes rutes es podran afegir mes endavant -->
+                <li><a href="#">Rànquing</a></li>
+                <li><a href="#">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -25,8 +35,10 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 Equip 3 - Educative Games Project</p>
+        <p>&copy; 2026 Equip 3 - Projecte de Jocs Educatius (DAW)</p>
     </footer>
+
+    {% block extra_js %}{% endblock %}
 </body>
 
 </html>
