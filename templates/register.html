@@ -5,7 +5,7 @@
 {% block content %}
 <div class="auth-container">
     <div class="auth-box">
-        <h2>Crear una nova compte</h2>
+        <h2>Crear compte</h2>
         
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -28,8 +28,8 @@
                 <input type="password" id="password" name="password" required>
             </div>
             
-            <div class="form-actions">
-                <button type="submit" class="btn-submit">Registrar-se</button>
+            <div class="form-actions" style="margin-top: 2rem;">
+                <button type="submit" class="btn btn-secondary" style="width: 100%;">Registrar-se</button>
             </div>
         </form>
         
