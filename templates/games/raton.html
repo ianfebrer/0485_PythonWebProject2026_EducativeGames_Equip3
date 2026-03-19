@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Mouse Master | The Xampinyó's League{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Mouse Master</h1>
+    <p>Passa el ratolí per damunt de la figura correcta tan ràpid com pugues i suma punts en cada ronda.</p>
+</section>
+
+<section class="auth-container">
+    <div class="auth-box" style="max-width: 960px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 2rem;">
+            <div>
+                <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Objectiu de la ronda</p>
+                <h2 style="margin-bottom: 0;">Passa per damunt de la figura <span id="target-figure" style="color: var(--accent);">Estrella roja</span></h2>
+            </div>
+            <div>
+                <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Puntuació actual</p>
+                <p style="font-size: 1.6rem; font-weight: 800;">0 punts</p>
+            </div>
+        </div>
+
+        <div id="mouse-game-status" class="flash-messages" style="display: none; margin-bottom: 2rem;">
+            Esperant interacció...
+        </div>
+
+        <div class="game-grid" id="mouse-game-board">
+            <article class="game-card mouse-figure" data-shape="Estrella" data-color="roig">
+                <span class="game-icon">⭐</span>
+                <h3>Estrella roja</h3>
+                <p>Figura complexa preparada per a ser detectada pel teu joc amb <code>mouseover</code>.</p>
+            </article>
+
+            <article class="game-card mouse-figure" data-shape="cor" data-color="blau">
+                <span class="game-icon">💙</span>
+                <h3>Cor blau</h3>
+                <p>Opció incorrecta de prova perquè després valides la selecció des del backend.</p>
+            </article>
+
+            <article class="game-card mouse-figure" data-shape="flor" data-color="groc">
+                <span class="game-icon">🌼</span>
+                <h3>Flor groga</h3>
+                <p>Pots canviar aquesta figura per SVG, canvas o elements més geomètrics quan muntes el joc complet.</p>
+            </article>
+        </div>
+
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button type="button" class="btn" id="start-mouse-game">Començar ronda</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Tornar a l'inici</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/mouse_game.js') }}"></script>
+{% endblock %}
