@@ -20,6 +20,10 @@ def index():
     # Passem l'usuari al teu index.html perquè puguis comprovar si el login ha funcionat
     return render_template('index.html', username=current_user)
 
+@app.route('/joc-rato')
+def joc_rato():
+    return render_template('games/raton.html')
+
 if __name__ == '__main__':
     # El host 0.0.0.0 es necesario para que funcione en tu servidor Oracle
     app.run(debug=True, host='0.0.0.0', port=5000)
