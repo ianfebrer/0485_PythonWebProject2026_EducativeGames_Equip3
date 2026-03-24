@@ -405,3 +405,63 @@ footer p {
 .auth-link a:hover {
     color: var(--secondary);
 }
+
+/* --- ESTILS PER AL JOC DE MECANOGRAFIA --- */
+.game-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    animation: fadeInUp 0.8s ease-out; /* Aprofitem l'animació que ja tens */
+}
+
+/* Caixa on surt la frase a copiar */
+.phrase-display {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    margin: 2rem 0 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(15, 23, 42, 0.6); /* El mateix fons fosc que els teus inputs */
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    line-height: 1.6;
+    text-align: left;
+    user-select: none; /* Evita que l'usuari pugui fer "copiar i enganxar" per fer trampes */
+}
+
+/* Input on l'usuari escriu */
+.typing-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(15, 23, 42, 0.6); /* El mateix fons fosc que els teus inputs */
+    color: var(--text-main);
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Outfit', sans-serif;
+}
+
+.typing-input:focus {
+    border-color: var(--accent); /* Fem servir el teu color Teal per indicar que està actiu */
+    box-shadow: 0 0 15px rgba(20, 184, 166, 0.3);
+}
+
+.typing-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Colors dinàmics que afegirà el JavaScript lletra a lletra */
+.lletra-correcta {
+    color: var(--accent); /* Color Teal per a lletres correctes */
+    text-shadow: 0 0 5px rgba(20, 184, 166, 0.4); /* Petit efecte neó (opcional, li dona un toc xulo) */
+}
+
+.lletra-incorrecta {
+    color: var(--secondary); /* Fem servir el teu color Pink per a les errades */
+    background-color: rgba(236, 72, 153, 0.2); /* Fons rosat suau per ressaltar l'error */
+    border-radius: 3px;
+    padding: 0 2px;
+}
