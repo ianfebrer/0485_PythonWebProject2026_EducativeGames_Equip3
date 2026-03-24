@@ -25,3 +25,21 @@ class Storage:
                 return [User(u['username'], u['password'], u['total_score']) for u in data]
         except (json.JSONDecodeError, KeyError):
             return []
+
+    def save_game_result(self, username, game_name, game_type, points):
+        from .user import User
+        from .game import Game
+        from .result import Result
+        
+        users = self.load_users()
+        current_user = next((u for u in users if u.username == username), None)
+        if not current_user:
+            current_user = User(username, "password123")
+            users.append(current_user)
+            
+        game_instance = Game(game_name, game_type)
+        result = Result(current_user, game_instance, points)
+        result.save()
+        
+        self.save_users(users)
+        return current_user.total_score
