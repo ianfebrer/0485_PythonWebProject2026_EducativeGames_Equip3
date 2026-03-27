@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Mouse Master | The Xampinyo's League{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Mouse Master</h1>
+    <p>Mou el ratoli, observa l'objectiu i fes clic sobre la figura correcta tan rapid com pugues.</p>
+</section>
+
+<section class="auth-container">
+    <div class="auth-box mouse-game-shell">
+        <div class="mouse-game-topbar">
+            <div class="mouse-game-target">
+                <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Objectiu de la ronda</p>
+                <h2 style="margin-bottom: 0;">Fes clic sobre <span id="target-figure" style="color: var(--accent);">Estrella</span></h2>
+            </div>
+            <div class="mouse-game-score">
+                <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Temps restant</p>
+                <p id="timer-value" style="font-size: 1.6rem; font-weight: 800;">30 s</p>
+            </div>
+            <div class="mouse-game-score">
+                <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Puntuacio actual</p>
+                <p id="score-value" style="font-size: 1.6rem; font-weight: 800;">0 punts</p>
+            </div>
+        </div>
+
+        <div id="mouse-game-status" class="flash-messages" style="display: block; margin-bottom: 2rem;">
+            Prem "Comencar ronda" i despres fes clic a una figura. A partir d'ahi, el joc continuara automaticament.
+        </div>
+
+        <div class="mouse-game-board" id="mouse-game-board">
+            <article class="mouse-figure mouse-figure-star" data-shape="Estrella" data-label="Estrella" aria-label="Estrella">
+                <span class="mouse-figure-icon">⭐</span>
+            </article>
+            <article class="mouse-figure mouse-figure-heart" data-shape="Cor" data-label="Cor" aria-label="Cor">
+                <span class="mouse-figure-icon">💙</span>
+            </article>
+            <article class="mouse-figure mouse-figure-flower" data-shape="Flor" data-label="Flor" aria-label="Flor">
+                <span class="mouse-figure-icon">🌼</span>
+            </article>
+            <article class="mouse-figure mouse-figure-diamond" data-shape="Diamant" data-label="Diamant" aria-label="Diamant">
+                <span class="mouse-figure-icon">💎</span>
+            </article>
+            <article class="mouse-figure mouse-figure-sun" data-shape="Sol" data-label="Sol" aria-label="Sol">
+                <span class="mouse-figure-icon">☀️</span>
+            </article>
+            <article class="mouse-figure mouse-figure-moon" data-shape="Lluna" data-label="Lluna" aria-label="Lluna">
+                <span class="mouse-figure-icon">🌙</span>
+            </article>
+            <article class="mouse-figure mouse-figure-cloud" data-shape="Núvol" data-label="Núvol" aria-label="Núvol">
+                <span class="mouse-figure-icon">☁️</span>
+            </article>
+            <article class="mouse-figure mouse-figure-lightning" data-shape="Llamp" data-label="Llamp" aria-label="Llamp">
+                <span class="mouse-figure-icon">⚡</span>
+            </article>
+            <article class="mouse-figure mouse-figure-snow" data-shape="Floc De Neu" data-label="Floc De Neu" aria-label="Floc De Neu">
+                <span class="mouse-figure-icon">❄️</span>
+            </article>
+            <article class="mouse-figure mouse-figure-leaf" data-shape="Fulla" data-label="Fulla" aria-label="Fulla">
+                <span class="mouse-figure-icon">🍃</span>
+            </article>
+            <article class="mouse-figure mouse-figure-fire" data-shape="Flama" data-label="Flama" aria-label="Flama">
+                <span class="mouse-figure-icon">🔥</span>
+            </article>
+            <article class="mouse-figure mouse-figure-circle" data-shape="Cercle" data-label="Cercle" aria-label="Cercle">
+                <span class="mouse-figure-icon">🟠</span>
+            </article>
+            <article class="mouse-figure mouse-figure-triangle" data-shape="Triangle" data-label="Triangle" aria-label="Triangle">
+                <span class="mouse-figure-icon">🔺</span>
+            </article>
+            <article class="mouse-figure mouse-figure-square" data-shape="Quadrat" data-label="Quadrat" aria-label="Quadrat">
+                <span class="mouse-figure-icon">🟦</span>
+            </article>
+            <article class="mouse-figure mouse-figure-hexagon" data-shape="Hexàgon" data-label="Hexàgon" aria-label="Hexàgon">
+                <span class="mouse-figure-icon">⬢</span>
+            </article>
+        </div>
+
+        <div class="mouse-game-actions">
+            <button type="button" class="btn" id="start-mouse-game">Comencar ronda</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Tornar a l'inici</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/mouse_game.js') }}"></script>
+{% endblock %}

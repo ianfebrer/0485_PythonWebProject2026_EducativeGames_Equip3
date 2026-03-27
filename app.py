@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request, jsonify, session
-from routes.auth import auth_bp
+from routes.auth import auth_bp # Importem les rutes que vam crear
 from models.figures import ComplexShape
 from models.game import DragAndDropGame
 from models.storage import Storage
 
 app = Flask(__name__)
+
+# 1. CLAU SECRETA (CRÍTIC)
+# Obligatòria per fer servir 'session' i 'flash'. Sense això, Flask donarà error.
+# En un entorn real, això ha de ser una cadena de text aleatòria i complexa.
 app.secret_key = 'clau_secreta_super_segura_per_educative_game' 
 
 # 2. REGISTRE DEL BLUEPRINT
@@ -25,7 +29,6 @@ def index():
 @app.route('/joc-rato')
 def joc_rato():
     return render_template('games/raton.html')
-
 @app.route('/game/drag-and-drop')
 def drag_and_drop():
     # Instanciem les figures a través de la pròpia classe filla del joc (POO)

@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Iniciar Sessió - Educative Game{% endblock %}
+{% block title %}Registre - Educative Game{% endblock %}
 
 {% block content %}
 <div class="auth-container">
     <div class="auth-box">
-        <h2>Iniciar Sessió</h2>
+        <h2>Crear compte</h2>
         
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -17,7 +17,7 @@
             {% endif %}
         {% endwith %}
 
-        <form action="{{ url_for('auth.login') }}" method="POST" class="auth-form">
+        <form action="{{ url_for('auth.register') }}" method="POST" class="auth-form">
             <div class="form-group">
                 <label for="username">Nom d'usuari:</label>
                 <input type="text" id="username" name="username" required>
@@ -29,11 +29,11 @@
             </div>
             
             <div class="form-actions" style="margin-top: 2rem;">
-                <button type="submit" class="btn" style="width: 100%;">Entrar</button>
+                <button type="submit" class="btn btn-secondary" style="width: 100%;">Registrar-se</button>
             </div>
         </form>
         
-        <p class="auth-link">No tens compte? <a href="{{ url_for('auth.register') }}">Registra't aquí</a>.</p>
+        <p class="auth-link">Ja tens compte? <a href="{{ url_for('auth.login') }}">Inicia sessió aquí</a>.</p>
     </div>
 </div>
 {% endblock %}
