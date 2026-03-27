@@ -18,5 +18,10 @@
         "username": "adriagisbert",
         "password": "scrypt:32768:8:1$32fHaoRcXnzxsb3k$d9f411965d406b777a7b42a4f884f52e0c3e1d1db8bbf3b9d0a3dd807a8c00f3277b3425b3de229b37d65111ca73eae86a088eda9bffa85fb48f5d648e49a5a6",
         "total_score": 0
+    },
+    {
+        "username": "guest",
+        "password": "scrypt:32768:8:1$cJxIWlflcfLawX0E$16b9a39c0eeae852e18d96577210c8e21a899858b2a9de5c1dc10ddc23a9255874aa0fe64395bcac069ff69e6fe9fd3625b3422ed1fb6fa28b233e080c31d957",
+        "total_score": 1155
     }
 ]
