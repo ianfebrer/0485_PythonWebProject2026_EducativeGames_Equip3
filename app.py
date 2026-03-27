@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session
-from routes.auth import auth_bp # Importem les rutes que vam crear
+from routes.auth import auth_bp # Importem les rutes d'autenticació que vam crear
+from routes.game_routes import game_bp # Importem les rutes del joc
 from models.figures import ComplexShape
 from models.game import DragAndDropGame
 from models.storage import Storage
@@ -14,6 +15,7 @@ app.secret_key = 'clau_secreta_super_segura_per_educative_game'
 # 2. REGISTRE DEL BLUEPRINT
 # Això li diu a Flask: "Escolta, tinc més rutes guardades en aquest altre fitxer, incorpora-les!"
 app.register_blueprint(auth_bp)
+app.register_blueprint(game_bp)
 
 # Storage initialization (using a dummy file or the default one)
 storage = Storage('data/results.json')
