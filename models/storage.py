@@ -22,7 +22,8 @@ class Storage:
             with open(self.file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 # Reconstruïm els objectes User a partir de les dades del diccionari
-                return [User(u['username'], u['password'], u['total_score']) for u in data]
+                # CRÍTIC: Afegim is_hashed=True perquè no torni a encriptar les claus del JSON
+                return [User(u['username'], u['password'], u.get('total_score', 0), is_hashed=True) for u in data]
         except (json.JSONDecodeError, KeyError):
             return []
 
@@ -43,3 +44,18 @@ class Storage:
         
         self.save_users(users)
         return current_user.total_score
+
+    # --- NOUS MÈTODES PER FACILITAR EL LOGIN/REGISTRE ---
+    def get_user(self, username):
+        # Busca i retorna un usuari pel seu nom, o None si no existeix
+        users = self.load_users()
+        for user in users:
+            if user.username == username:
+                return user
+        return None
+
+    def add_user(self, new_user):
+        # Afegeix un nou usuari a la llista i guarda el fitxer
+        users = self.load_users()
+        users.append(new_user)
+        self.save_users(users)

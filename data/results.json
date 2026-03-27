@@ -1,7 +1,22 @@
 [
     {
-        "username": "player1",
-        "password": "password123",
-        "total_score": 2740
+        "username": "ian",
+        "password": "scrypt:32768:8:1$GDVeDPey7R3bS4K8$9c15acd7894036c5235f8b8e61b8e4e6bf30c9cda8f072cbc7a1a00f4f2f958fad38fb4f3e34c09801e880935f9d52f7fcdaf22e3ec662c8b60edd19a04a1f2e",
+        "total_score": 0
+    },
+    {
+        "username": "ianfebrer",
+        "password": "scrypt:32768:8:1$9DAgQ6h7BEkUHqd2$abf79377dd7fc595f3e99fdb84ac246b88a13df317cbf392c9bb8dd8255ffe86f9b339f989186769c3e03d34b136cf20c0e8164bf1cd5deb3362cb8dad90f0f7",
+        "total_score": 0
+    },
+    {
+        "username": "Ian_Febrer",
+        "password": "scrypt:32768:8:1$JT94cmyp5qsXBq5o$0efba240cc310f84f42d1c49c6c3d510a594a27449ff2b805bd55b1ada9f3c3121b0151d82de6428c63ec1c24975cbfe0a2b103f9891d5c24051646ffa8931c0",
+        "total_score": 0
+    },
+    {
+        "username": "adriagisbert",
+        "password": "scrypt:32768:8:1$32fHaoRcXnzxsb3k$d9f411965d406b777a7b42a4f884f52e0c3e1d1db8bbf3b9d0a3dd807a8c00f3277b3425b3de229b37d65111ca73eae86a088eda9bffa85fb48f5d648e49a5a6",
+        "total_score": 0
     }
 ]

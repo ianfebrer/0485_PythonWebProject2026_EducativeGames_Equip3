@@ -1,20 +1,30 @@
 from flask import Flask, render_template, request, jsonify, session
+from routes.auth import auth_bp
 from models.figures import ComplexShape
 from models.game import DragAndDropGame
 from models.storage import Storage
 
 app = Flask(__name__)
-app.secret_key = 'super_secret_key_educative_games'  # Necessari per usar session
+app.secret_key = 'clau_secreta_super_segura_per_educative_game' 
+
+# 2. REGISTRE DEL BLUEPRINT
+# Això li diu a Flask: "Escolta, tinc més rutes guardades en aquest altre fitxer, incorpora-les!"
+app.register_blueprint(auth_bp)
 
 # Storage initialization (using a dummy file or the default one)
 storage = Storage('data/results.json')
 
 @app.route('/')
 def index():
-    # Inicialitzem un usuari de prova a la sessió per poder desar punts
-    if 'username' not in session:
-        session['username'] = 'player1'
-    return render_template('index.html')
+    # Agafem el nom d'usuari de la sessió (si no ha iniciat sessió, serà None)
+    current_user = session.get('username')
+    
+    # Passem l'usuari al teu index.html perquè puguis comprovar si el login ha funcionat
+    return render_template('index.html', username=current_user)
+
+@app.route('/joc-rato')
+def joc_rato():
+    return render_template('games/raton.html')
 
 @app.route('/game/drag-and-drop')
 def drag_and_drop():
