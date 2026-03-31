@@ -1,0 +1,42 @@
+[
+    {
+        "username": "ian",
+        "scores": {
+            "teclado": 0,
+            "raton": 0,
+            "drag_drop": 0
+        }
+    },
+    {
+        "username": "ianfebrer",
+        "scores": {
+            "teclado": 0,
+            "raton": 0,
+            "drag_drop": 0
+        }
+    },
+    {
+        "username": "Ian_Febrer",
+        "scores": {
+            "teclado": 0,
+            "raton": 0,
+            "drag_drop": 0
+        }
+    },
+    {
+        "username": "adriagisbert",
+        "scores": {
+            "teclado": 430,
+            "raton": 130,
+            "drag_drop": 0
+        }
+    },
+    {
+        "username": "prova",
+        "scores": {
+            "teclado": 410,
+            "raton": 0,
+            "drag_drop": 0
+        }
+    }
+]

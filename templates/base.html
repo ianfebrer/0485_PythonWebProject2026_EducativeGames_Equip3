@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="The Xampinyó's League - Educative games for learning geometric shapes and colors.">
+        content="The Xampinyo's League - Educative games for learning geometric shapes and colors.">
     <title>{% block title %}Educative Gamer{% endblock %}</title>
-    <!-- Modern Font: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -24,8 +23,8 @@
             </a>
             <ul>
                 <li><a href="{{ url_for('index') }}">Inici</a></li>
-                <li><a href="#">Rànquing</a></li>
-                
+                <li><a href="{{ url_for('ranking') }}">Rànquing</a></li>
+
                 {% if session.get('username') %}
                     <li><a href="#" style="color: var(--accent);">Hola, {{ session.get('username') }}!</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Tancar sessió</a></li>
