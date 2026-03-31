@@ -1,33 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}Inici | The Xampinyó's League{% endblock %}
+{% block title %}Inici | Educative Gamer{% endblock %}
 
 {% block content %}
 <section class="hero">
     <h1>Entrena la teva Ment!</h1>
-    <p>Selecciona un repte per començar a desenvolupar les teves habilitats amb figures geomètriques i colors al més alt nivell.</p>
+    <p>Selecciona un repte per començar a desenvolupar les teves habilitats amb figures geomètriques i colors al més alt
+        nivell.</p>
 </section>
 
 <div class="game-grid">
     <div class="game-card">
         <span class="game-icon">⌨️</span>
         <h3>Keyboard Hero</h3>
-        <p>Posa a prova la teva velocitat de reacció amb el teclat. Identifica la figura i actua ràpidament segons et digui la pantalla!</p>
+        <p>Posa a prova la teva velocitat de reacció amb el teclat. Identifica la figura i actua ràpidament segons et
+            digui la pantalla!</p>
         <!-- L'enllaç no està definit al backend encara, deixem un "#" o la ruta corresponent si es crea -->
-        <a href="#" class="btn">Jugar ara</a>
+        <a href="{{ url_for('game.play_mecanografia') }}" class="btn">Jugar ara</a>
     </div>
 
     <div class="game-card">
         <span class="game-icon">🖱️</span>
         <h3>Mouse Master</h3>
         <p>Ets ràpid amb el ratolí? Demostra la teva precisió movent el cursor per interactuar amb la pantalla netejant la zona.</p>
-        <a href="#" class="btn btn-secondary">Jugar ara</a>
+        <a href="{{ url_for('joc_rato') }}" class="btn btn-secondary">Jugar ara</a>
     </div>
 
     <div class="game-card">
         <span class="game-icon">📦</span>
         <h3>Drag & Drop</h3>
-        <p>Arrossega i solta cadascuna de les figures geomètriques complexes al seu lloc corresponent de forma precisa i al primer intent.</p>
+        <p>Arrossega i solta cadascuna de les figures geomètriques complexes al seu lloc corresponent de forma precisa i
+            al primer intent.</p>
         <a href="#" class="btn btn-accent">Jugar ara</a>
     </div>
 </div>
