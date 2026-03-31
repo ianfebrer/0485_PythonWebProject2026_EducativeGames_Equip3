@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let gameStarted = false;
     let timeLeft = GAME_DURATION;
     let timerId = null;
+    let savingScore = false;
 
     function showStatus(message, type = "info") {
         statusBox.style.display = "block";
@@ -49,24 +50,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function pickRandomTarget() {
-        const randomIndex = Math.floor(Math.random() * figures.length);
-        currentTarget = figures[randomIndex];
-        targetFigure.textContent = currentTarget.dataset.label;
+    function loadTargetFromBackend() {
+        fetch("/api/mouse-objectiu")
+            .then((response) => response.json())
+            .then((data) => {
+                currentTarget = data.objectiu;
+                targetFigure.textContent = currentTarget;
+            })
+            .catch(() => {
+                currentTarget = null;
+                targetFigure.textContent = "Error";
+                showStatus("No he pogut carregar la ronda.", "error");
+            });
     }
 
     function stopGame() {
         roundActive = false;
         gameStarted = false;
         currentTarget = null;
+
         if (timerId) {
             window.clearInterval(timerId);
             timerId = null;
         }
+
         startButton.textContent = "Tornar a jugar";
         resetFigures();
         targetFigure.textContent = "Cap figura";
-        showStatus(`Temps esgotat. Puntuacio final: ${score} punts.`, "info");
+        saveScore();
     }
 
     function startRound() {
@@ -76,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         roundActive = true;
         resetFigures();
-        pickRandomTarget();
+        loadTargetFromBackend();
         showStatus("Ronda activa. Fes clic sobre la figura correcta.", "info");
     }
 
@@ -97,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startGame() {
         score = 0;
+        savingScore = false;
         timeLeft = GAME_DURATION;
         gameStarted = true;
         updateScore();
@@ -104,6 +116,31 @@ document.addEventListener("DOMContentLoaded", () => {
         startButton.textContent = "Reiniciar partida";
         startTimer();
         startRound();
+    }
+
+    function saveScore() {
+        if (savingScore) {
+            return;
+        }
+
+        savingScore = true;
+
+        fetch("/api/guardar-resultat-rato", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                punts: score
+            })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                showStatus(data.missatge, "info");
+            })
+            .catch(() => {
+                showStatus(`Temps esgotat. Puntuacio final: ${score} punts.`, "info");
+            });
     }
 
     startButton.addEventListener("click", () => {
@@ -139,30 +176,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const isCorrect = figure === currentTarget;
-
-            resetFigures();
-            figure.style.transform = "scale(1.03)";
-            figure.style.outline = isCorrect
-                ? "3px solid rgba(20, 184, 166, 0.85)"
-                : "3px solid rgba(236, 72, 153, 0.85)";
-
-            if (isCorrect) {
-                score += 10;
-                updateScore();
-                showStatus(`Correcte! Has trobat ${figure.dataset.label}.`, "success");
-            } else {
-                showStatus(
-                    `Incorrecte. Has passat per ${figure.dataset.label}. La correcta era ${currentTarget.dataset.label}.`,
-                    "error"
-                );
-            }
-
             roundActive = false;
 
-            window.setTimeout(() => {
-                startRound();
-            }, 900);
+            fetch("/api/mouse-validar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    objectiu: currentTarget,
+                    seleccionada: figure.dataset.label
+                })
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    resetFigures();
+                    figure.style.transform = "scale(1.03)";
+                    figure.style.outline = data.correcte
+                        ? "3px solid rgba(20, 184, 166, 0.85)"
+                        : "3px solid rgba(236, 72, 153, 0.85)";
+
+                    if (data.correcte) {
+                        score += data.punts;
+                        updateScore();
+                        showStatus(`Correcte! Has trobat ${figure.dataset.label}.`, "success");
+                    } else {
+                        showStatus(
+                            `Incorrecte. Has clicat ${figure.dataset.label}. La correcta era ${currentTarget}.`,
+                            "error"
+                        );
+                    }
+
+                    window.setTimeout(() => {
+                        startRound();
+                    }, 900);
+                })
+                .catch(() => {
+                    showStatus("No he pogut validar la figura.", "error");
+                    window.setTimeout(() => {
+                        startRound();
+                    }, 900);
+                });
         });
     });
 

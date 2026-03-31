@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Rànquing | Educative Gamer{% endblock %}
+
+{% block content %}
+<section class="hero ranking-hero">
+    <h1>Rànquing General</h1>
+</section>
+
+<section class="ranking-grid">
+    {% for ranking in rankings %}
+    <article class="ranking-card">
+        <div class="ranking-card-header">
+            <div>
+                <p class="ranking-label">Taula del joc</p>
+                <h2>{{ ranking.title }}</h2>
+            </div>
+            <span class="ranking-badge">{{ loop.index }}/3</span>
+        </div>
+
+        {% if ranking.key == 'drag_drop' %}
+        {% endif %}
+
+        <div class="ranking-table-wrapper">
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Posició</th>
+                        <th>Usuari</th>
+                        <th>Punts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in ranking.rows %}
+                    <tr>
+                        <td>
+                            <span class="ranking-position ranking-position-{{ loop.index if loop.index <= 3 else 'other' }}">
+                                {{ loop.index }}
+                            </span>
+                        </td>
+                        <td>{{ row.username }}</td>
+                        <td>{{ row.points }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="ranking-empty">Encara no hi ha usuaris registrats.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
