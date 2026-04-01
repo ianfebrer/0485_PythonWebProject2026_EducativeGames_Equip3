@@ -19,3 +19,13 @@ class ComplexShape(GeometricShape):
     def calculate_area(self):
         # Lògica específica per calcular l'àrea d'una figura complexa
         return f"Calculant l'àrea per a un {self.name} amb {self.sides} costats."
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "color": self.color,
+            "sides": self.sides
+        }
+
+    def validate_drop(self, target_name):
+        return self.name.lower() == target_name.lower()
