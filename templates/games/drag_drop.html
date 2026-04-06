@@ -517,7 +517,11 @@ body {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '/';
+                    finishBtn.textContent = data.message;
+
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1800);
                 }
             })
             .catch(err => {
