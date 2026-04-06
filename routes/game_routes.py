@@ -1,11 +1,8 @@
 import os
-
 from flask import Blueprint, jsonify, request, render_template, session
-
 from games.mouse_move_game import MouseMoveGame
 from models.keyboard_game import KeyboardGame
 from models.score_storage import ScoreStorage
-
 
 game_bp = Blueprint('game', __name__)
 mecanografia_game = KeyboardGame()
@@ -18,7 +15,6 @@ score_storage = ScoreStorage(
 @game_bp.route('/mecanografia')
 def play_mecanografia():
     return render_template('games/teclado.html')
-
 
 @game_bp.route('/api/get-frase', methods=['GET'])
 def api_get_frase():

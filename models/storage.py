@@ -18,11 +18,29 @@ class Storage:
         try:
             with open(self.file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
+                # Reconstruïm els objectes User a partir de les dades del diccionari
                 # CRÍTIC: Afegim is_hashed=True perquè no torni a encriptar les claus del JSON
                 return [User(u['username'], u['password'], u.get('total_score', 0), is_hashed=True) for u in data]
         except (json.JSONDecodeError, KeyError):
             return []
 
+    def save_game_result(self, username, game_name, game_type, points):
+        from .user import User
+        from .game import Game
+        from .result import Result
+        
+        users = self.load_users()
+        current_user = next((u for u in users if u.username == username), None)
+        if not current_user:
+            current_user = User(username, "password123")
+            users.append(current_user)
+            
+        game_instance = Game(game_name, game_type)
+        result = Result(current_user, game_instance, points)
+        result.save()
+        
+        self.save_users(users)
+        return current_user.total_score
     # --- NOUS MÈTODES PER FACILITAR EL LOGIN/REGISTRE ---
     def get_user(self, username):
         # Busca i retorna un usuari pel seu nom, o None si no existeix

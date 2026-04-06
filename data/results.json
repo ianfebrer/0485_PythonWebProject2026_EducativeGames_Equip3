@@ -23,5 +23,11 @@
         "username": "prova",
         "password": "scrypt:32768:8:1$wyHpJ3wx53qVEKWp$48addd941a23ecc6d91af5b0bd9f413d05121cfdd301361a886102296dae975e97e67212e76cfa4c28b0884c555aa78071d948ddabe8e44d1873960dce888908",
         "total_score": 0
+    },
+    {
+        "username": "guest",
+        "password": "scrypt:32768:8:1$cJxIWlflcfLawX0E$16b9a39c0eeae852e18d96577210c8e21a899858b2a9de5c1dc10ddc23a9255874aa0fe64395bcac069ff69e6fe9fd3625b3422ed1fb6fa28b233e080c31d957",
+        "total_score": 1155
     }
+
 ]
