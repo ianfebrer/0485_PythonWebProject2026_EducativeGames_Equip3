@@ -9,6 +9,33 @@
         nivell.</p>
 </section>
 
+{% if user %}
+<div style="max-width: 1100px; margin: 0 auto 2rem auto;">
+    <form action="{{ url_for('index') }}" method="POST" style="display: flex; align-items: end; gap: 1rem; flex-wrap: wrap; text-align: left;">
+        <div class="form-group" style="min-width: 180px; margin-bottom: 0;">
+            <label>Nom:</label>
+            <p>{{ user.username }}</p>
+        </div>
+
+        <div class="form-group" style="flex: 1; min-width: 280px; margin-bottom: 0;">
+            <label for="anotacions">Anotacions:</label>
+            <input type="text" id="anotacions" name="anotacions" value="{{ user.get_anotacions() }}">
+        </div>
+
+        <div class="form-group" style="min-width: 90px; margin-bottom: 0;">
+            <label for="vist">
+                <input type="checkbox" id="vist" name="vist" style="width: auto; padding: 0; border-radius: 0; margin-right: 0.35rem;" {% if user.vist %}checked{% endif %}>
+                Vist
+            </label>
+        </div>
+
+        <div class="form-actions" style="margin-top: 0;">
+            <button type="submit" class="btn">Guardar</button>
+        </div>
+    </form>
+</div>
+{% endif %}
+
 <div class="game-grid">
     <div class="game-card">
         <span class="game-icon">⌨️</span>

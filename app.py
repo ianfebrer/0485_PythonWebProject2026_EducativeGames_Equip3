@@ -1,11 +1,12 @@
 import json
 import os
 
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 
 from models.figures import ComplexShape
 from models.game import DragAndDropGame
 from models.score_storage import ScoreStorage
+from models.storage import Storage
 from routes.auth import auth_bp
 from routes.game_routes import game_bp
 
@@ -17,6 +18,7 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(game_bp)
 
 score_storage = ScoreStorage(os.path.join(app.root_path, 'data', 'scores.json'))
+storage = Storage(os.path.join(app.root_path, 'data', 'results.json'))
 
 # Aquí definim els jocs que han d'aparèixer al rànquing.
 RANKING_GAMES = [
@@ -67,10 +69,28 @@ def load_rankings():
     return rankings
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     current_user = session.get('username')
-    return render_template('index.html', username=current_user)
+    user = None
+
+    if current_user:
+        # busquem l'usuari que té la sessió iniciada
+        users = storage.load_users()
+
+        for u in users:
+            if u.username == current_user:
+                user = u
+                break
+
+        if request.method == 'POST' and user:
+            # des de l'inici es poden modificar anotacions i vist
+            user.set_anotacions(request.form.get('anotacions', ''))
+            user.vist = request.form.get('vist') == 'on'
+            storage.save_users(users)
+            return redirect(url_for('index'))
+
+    return render_template('index.html', username=current_user, user=user)
 
 
 @app.route('/joc-rato')
@@ -80,7 +100,7 @@ def joc_rato():
 
 @app.route('/game/drag-and-drop')
 def drag_and_drop():
-    # Carrego les figures del joc de drag & drop des del backend.
+    # es carreguen les figures del joc de drag drop des del backend
     shapes = DragAndDropGame.get_shapes()
     shapes_data = [shape.to_dict() for shape in shapes]
     return render_template('games/drag_drop.html', shapes=shapes_data)

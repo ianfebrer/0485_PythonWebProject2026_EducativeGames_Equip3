@@ -1,5 +1,6 @@
 import json
 import os
+
 from .user import User
 
 class Storage:
@@ -14,13 +15,14 @@ class Storage:
     def load_users(self):
         if not os.path.exists(self.file_path):
             return []
-        
+
         try:
             with open(self.file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 # Reconstruïm els objectes User a partir de les dades del diccionari
                 # CRÍTIC: Afegim is_hashed=True perquè no torni a encriptar les claus del JSON
-                return [User(u['username'], u['password'], u.get('total_score', 0), is_hashed=True) for u in data]
+                # També llegim els nous camps anotacions i vist.
+                return [User(u['username'], u['password'], u.get('total_score', 0), u.get('anotacions', ''), u.get('vist', False), is_hashed=True) for u in data]
         except (json.JSONDecodeError, KeyError):
             return []
 
@@ -28,22 +30,22 @@ class Storage:
         from .user import User
         from .game import Game
         from .result import Result
-        
+
         users = self.load_users()
         current_user = next((u for u in users if u.username == username), None)
         if not current_user:
             current_user = User(username, "password123")
             users.append(current_user)
-            
+
         game_instance = Game(game_name, game_type)
         result = Result(current_user, game_instance, points)
         result.save()
-        
+
         self.save_users(users)
         return current_user.total_score
-    # --- NOUS MÈTODES PER FACILITAR EL LOGIN/REGISTRE ---
+
     def get_user(self, username):
-        # Busca i retorna un usuari pel seu nom, o None si no existeix
+        # Busca i retorna un usuari pel seu nom, o none si no existeix
         users = self.load_users()
         for user in users:
             if user.username == username:
@@ -51,7 +53,7 @@ class Storage:
         return None
 
     def add_user(self, new_user):
-        # Afegeix un nou usuari a la llista i guarda el fitxer
+        # s'afegeix un nou usuari a la llista i guarda el fitxer
         users = self.load_users()
         users.append(new_user)
         self.save_users(users)
