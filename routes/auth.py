@@ -12,13 +12,18 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         
+        # 🟢 NOU: Agafem les dades extra del formulari
+        anotacions = request.form.get('anotacions', '')
+        # Si el checkbox està marcat, retorna 'on', sinó retorna None
+        vist = True if request.form.get('vist') else False
+
         # Utilitzem el teu Storage per comprovar si ja existeix
         if storage.get_user(username):
             flash('Aquest nom d\'usuari ja existeix.')
             return redirect(url_for('auth.register'))
         
-        # Creem el nou usuari (es fa el hash automàtic)
-        new_user = User(username=username, password=password)
+        # 🟢 NOU: Passem les noves dades al constructor
+        new_user = User(username=username, password=password, anotacions=anotacions, vist=vist)
         # Utilitzem el teu Storage per afegir-lo
         storage.add_user(new_user)
         

@@ -20,7 +20,18 @@ class Storage:
                 data = json.load(f)
                 # Reconstruïm els objectes User a partir de les dades del diccionari
                 # CRÍTIC: Afegim is_hashed=True perquè no torni a encriptar les claus del JSON
-                return [User(u['username'], u['password'], u.get('total_score', 0), is_hashed=True) for u in data]
+                # CRÍTIC: Afegim is_hashed=True perquè no torni a encriptar les claus del JSON
+                # 🟢 NOU: Afegim la lectura d'anotacions i vist de forma segura (amb valors per defecte)
+                return [
+                    User(
+                        u['username'], 
+                        u['password'], 
+                        u.get('total_score', 0), 
+                        is_hashed=True,
+                        anotacions=u.get('anotacions', ""),
+                        vist=u.get('vist', False)
+                    ) for u in data
+                ]
         except (json.JSONDecodeError, KeyError):
             return []
 
