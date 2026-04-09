@@ -26,11 +26,12 @@
                 <li><a href="{{ url_for('ranking') }}">Rànquing</a></li>
 
                 {% if session.get('username') %}
-                    <li><a href="#" style="color: var(--accent);">Hola, {{ session.get('username') }}!</a></li>
-                    <li><a href="{{ url_for('auth.logout') }}">Tancar sessió</a></li>
+                <li><a href="{{ url_for('perfil') }}" style="color: var(--accent);">Hola, {{ session.get('username')
+                        }}!</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Tancar sessió</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-                    <li><a href="{{ url_for('auth.register') }}">Registre</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li><a href="{{ url_for('auth.register') }}">Registre</a></li>
                 {% endif %}
             </ul>
         </nav>
