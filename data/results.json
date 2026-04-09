@@ -2,32 +2,57 @@
     {
         "username": "ian",
         "password": "scrypt:32768:8:1$GDVeDPey7R3bS4K8$9c15acd7894036c5235f8b8e61b8e4e6bf30c9cda8f072cbc7a1a00f4f2f958fad38fb4f3e34c09801e880935f9d52f7fcdaf22e3ec662c8b60edd19a04a1f2e",
-        "total_score": 0
+        "total_score": 0,
+        "anotacions": "",
+        "vist": false
     },
     {
         "username": "ianfebrer",
         "password": "scrypt:32768:8:1$9DAgQ6h7BEkUHqd2$abf79377dd7fc595f3e99fdb84ac246b88a13df317cbf392c9bb8dd8255ffe86f9b339f989186769c3e03d34b136cf20c0e8164bf1cd5deb3362cb8dad90f0f7",
-        "total_score": 0
+        "total_score": 0,
+        "anotacions": "",
+        "vist": false
     },
     {
         "username": "Ian_Febrer",
         "password": "scrypt:32768:8:1$JT94cmyp5qsXBq5o$0efba240cc310f84f42d1c49c6c3d510a594a27449ff2b805bd55b1ada9f3c3121b0151d82de6428c63ec1c24975cbfe0a2b103f9891d5c24051646ffa8931c0",
-        "total_score": 0
+        "total_score": 0,
+        "anotacions": "",
+        "vist": false
     },
     {
         "username": "adriagisbert",
         "password": "scrypt:32768:8:1$32fHaoRcXnzxsb3k$d9f411965d406b777a7b42a4f884f52e0c3e1d1db8bbf3b9d0a3dd807a8c00f3277b3425b3de229b37d65111ca73eae86a088eda9bffa85fb48f5d648e49a5a6",
-        "total_score": 0
+        "total_score": 0,
+        "anotacions": "",
+        "vist": false
     },
     {
         "username": "prova",
         "password": "scrypt:32768:8:1$wyHpJ3wx53qVEKWp$48addd941a23ecc6d91af5b0bd9f413d05121cfdd301361a886102296dae975e97e67212e76cfa4c28b0884c555aa78071d948ddabe8e44d1873960dce888908",
-        "total_score": 0
+        "total_score": 0,
+        "anotacions": "",
+        "vist": false
     },
     {
         "username": "guest",
         "password": "scrypt:32768:8:1$cJxIWlflcfLawX0E$16b9a39c0eeae852e18d96577210c8e21a899858b2a9de5c1dc10ddc23a9255874aa0fe64395bcac069ff69e6fe9fd3625b3422ed1fb6fa28b233e080c31d957",
-        "total_score": 1155
+        "total_score": 1710,
+        "anotacions": "",
+        "vist": false
+    },
+    {
+        "username": "Gabi",
+        "password": "scrypt:32768:8:1$OWByl5eh4PrryXFO$26d7e062b1b59e8db177a4e49daf5819ad8b0a821ed32a708e8c467c27b314b2b7268ccec6aef8c7bf4a947d2af6f7a12c83f052598b6ce4d9ddd0443225913e",
+        "total_score": 0,
+        "anotacions": "",
+        "vist": false
+    },
+    {
+        "username": "Gabriel Polo",
+        "password": "scrypt:32768:8:1$Iip7bkvOp9B3D1GY$a50709a3067e9fd4bff5aed0d25941dc4dd1bd856a77cfbb2243a4b4983eb0d27e6b1548d8388517280b3d62ff2ee42d35d7ac14d4843582ade526316444a345",
+        "total_score": 0,
+        "anotacions": "ahl\u00f1jfdlks\u00f1jfdsalk",
+        "vist": false
     }
-
 ]

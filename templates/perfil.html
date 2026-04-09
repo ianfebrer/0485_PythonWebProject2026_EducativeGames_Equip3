@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil Usuari{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>El teu Perfil</h1>
+    <p>Mira i modifica les teves anotacions com a usuari actiu.</p>
+</section>
+
+<div style="max-width: 600px; margin: 2rem auto; background: var(--bg-card); padding: 2rem; border-radius: 10px;">
+    <h2>Dades Actuals</h2>
+    <p><strong>Usuari:</strong> {{ usuari.username }}</p>
+
+    <!-- Mostrem l'atribut per pantalla -->
+    <p><strong>Anotacions:</strong> {{ usuari.get_anotacions() }}</p>
+    <p><strong>Revisat (Vist):</strong> {% if usuari.vist %} Sí {% else %} No {% endif %}</p>
+
+    <hr style="margin: 2rem 0;">
+
+    <form method="POST">
+        <!-- Text area obligatori on afegir el text -->
+        <label for="anotacions" style="display:block; margin-bottom: 0.5rem;">Anotacions (Les teves notes de
+            progressió):</label>
+        <textarea name="anotacions" id="anotacions" rows="5"
+            style="width: 100%; border-radius:10px; padding: 1rem;">{{ usuari.get_anotacions() }}</textarea>
+
+        <label style="display:flex; align-items:center; gap: 0.5rem; margin-top: 1rem;">
+            <input type="checkbox" name="vist" style="width:20px; height:20px" {% if usuari.vist %}checked{% endif %}>
+            Marcar com a vist
+        </label>
+
+        <button type="submit" class="btn" style="margin-top: 1.5rem;">Guardar canvis</button>
+    </form>
+</div>
+{% endblock %}

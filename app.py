@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 
 from models.figures import ComplexShape
 from models.game import DragAndDropGame
@@ -127,10 +127,36 @@ def save_score():
     })
 
 
+@app.route('/perfil', methods=['GET', 'POST'])
+def perfil():
+    from models.storage import Storage
+    storage = Storage(os.path.join(app.root_path, 'data', 'results.json'))
+    
+    if 'username' not in session:
+        return redirect(url_for('auth.login'))
+        
+    usuari = storage.get_user(session['username'])
+    
+    if request.method == 'POST':
+        noves_anotacions = request.form.get('anotacions', '')
+        es_vist = True if request.form.get('vist') else False
+        
+        usuari.set_anotacions(noves_anotacions)
+        usuari.vist = es_vist
+        
+        users = storage.load_users()
+        for i, u in enumerate(users):
+            if u.username == usuari.username:
+                users[i] = usuari
+                break
+        storage.save_users(users)
+        
+    return render_template('perfil.html', usuari=usuari)
+
+
 @app.route('/ranking')
 def ranking():
     return render_template('ranking.html', rankings=load_rankings())
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
