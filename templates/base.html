@@ -18,15 +18,15 @@
 <body>
     <header>
         <nav>
-            <a href="{{ url_for('index') }}" class="logo">
+            <a href="{{ url_for('main.index') }}" class="logo">
                 <span class="logo-emoji">🧠</span> Educative Gamer
             </a>
             <ul>
-                <li><a href="{{ url_for('index') }}">Inici</a></li>
-                <li><a href="{{ url_for('ranking') }}">Rànquing</a></li>
+                <li><a href="{{ url_for('main.index') }}">Inici</a></li>
+                <li><a href="{{ url_for('main.ranking') }}">Rànquing</a></li>
 
                 {% if session.get('username') %}
-                <li><a href="{{ url_for('perfil') }}" style="color: var(--accent);">Hola, {{ session.get('username')
+                <li><a href="{{ url_for('main.perfil') }}" style="color: var(--accent);">Hola, {{ session.get('username')
                         }}!</a></li>
                 <li><a href="{{ url_for('auth.logout') }}">Tancar sessió</a></li>
                 {% else %}
