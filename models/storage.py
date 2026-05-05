@@ -58,5 +58,7 @@ class Storage:
     def add_user(self, new_user):
         # Afegeix un nou usuari a la llista i guarda el fitxer
         users = self.load_users()
+        if any(user.username == new_user.username for user in users):
+            raise ValueError(f"Username '{new_user.username}' already exists")
         users.append(new_user)
         self.save_users(users)
