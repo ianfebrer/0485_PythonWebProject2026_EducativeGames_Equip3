@@ -1,8 +1,11 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User:
-    def __init__(self, username, password, is_hashed=False):
+    def __init__(self, username, password, total_score=0, is_hashed=False, anotacions="", vist=False):
         self.username = username
+        self.total_score = total_score
+        self.anotacions = anotacions
+        self.vist = vist
         
         if is_hashed:
             self.password = password
@@ -15,8 +18,11 @@ class User:
     def to_dict(self):
         return {
             "username": self.username,
-            "password": self.password
+            "password": self.password,
+            "total_score": self.total_score,
+            "anotacions": self.anotacions,
+            "vist": self.vist
         }
 
     def __str__(self):
-        return f"User: {self.username} | Total Score: {self.total_score}"
+        return f"User: {self.username} | Score: {self.total_score}"
