@@ -10,4 +10,7 @@ gunicorn==21.2.0
 flask-sqlalchemy==3.1.1
 pymysql==1.1.1
 cryptography==42.0.5
+<<<<<<< HEAD
 pymongo==4.13.0
+=======
+>>>>>>> d1d1715 (Canvis per a migrar els usuaris a la BBDD i edició als arxius per a que funcionen totes les funcionalitats)
