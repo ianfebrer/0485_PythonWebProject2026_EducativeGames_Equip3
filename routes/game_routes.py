@@ -1,8 +1,11 @@
 import os
-from flask import Blueprint, jsonify, request, render_template, session
+
+from flask import Blueprint, jsonify, render_template, request, session
+
 from games.mouse_move_game import MouseMoveGame
 from models.keyboard_game import KeyboardGame
 from models.score_storage import ScoreStorage
+
 
 game_bp = Blueprint('game', __name__)
 mecanografia_game = KeyboardGame()
@@ -16,6 +19,7 @@ score_storage = ScoreStorage(
 def play_mecanografia():
     return render_template('games/teclado.html')
 
+
 @game_bp.route('/api/get-frase', methods=['GET'])
 def api_get_frase():
     frase = mecanografia_game.obtenir_frase()
@@ -24,14 +28,14 @@ def api_get_frase():
 
 @game_bp.route('/api/mouse-objectiu', methods=['GET'])
 def api_mouse_objectiu():
-    # Aquí envio al frontend quina figura toca buscar en la ronda.
+    # Envio al frontend quina figura toca buscar en la ronda.
     objectiu = mouse_move_game.obtenir_objectiu()
     return jsonify({'objectiu': objectiu})
 
 
 @game_bp.route('/api/mouse-validar', methods=['POST'])
 def api_mouse_validar():
-    # Aquí valido des del backend si la figura triada és correcta o no.
+    # Valido des del backend si la figura triada es correcta o no.
     dades = request.get_json() or {}
     figura_objectiu = dades.get('objectiu', '')
     figura_seleccionada = dades.get('seleccionada', '')
@@ -47,7 +51,7 @@ def api_mouse_validar():
 
 @game_bp.route('/api/guardar-resultat', methods=['POST'])
 def api_guardar_resultat():
-    # Guarda la millor puntuació del joc de teclado.
+    # Guarda la millor puntuacio del joc de teclado.
     dades = request.get_json() or {}
     correctes = dades.get('correctes', 0)
     incorrectes = dades.get('incorrectes', 0)
@@ -62,7 +66,7 @@ def api_guardar_resultat():
         missatge += f' Millor puntuacio guardada: {millor_puntuacio}.'
     else:
         guardat = False
-        missatge += ' Inicia sessió per guardar els teus resultats!'
+        missatge += ' Inicia sessio per guardar els teus resultats!'
 
     return jsonify({
         'punts': punts_finals,
@@ -73,7 +77,7 @@ def api_guardar_resultat():
 
 @game_bp.route('/api/guardar-resultat-rato', methods=['POST'])
 def api_guardar_resultat_rato():
-    # Guarda la millor puntuació del joc del ratolí.
+    # Guarda la millor puntuacio del joc del ratoli.
     dades = request.get_json() or {}
     punts = dades.get('punts', 0)
 

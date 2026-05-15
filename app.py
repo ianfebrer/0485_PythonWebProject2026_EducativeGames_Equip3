@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 
 from models.figures import ComplexShape
 from models.game import DragAndDropGame
@@ -18,7 +18,7 @@ app.register_blueprint(game_bp)
 
 score_storage = ScoreStorage(os.path.join(app.root_path, 'data', 'scores.json'))
 
-# Aquí definim els jocs que han d'aparèixer al rànquing.
+# Jocs que apareixen al ranking.
 RANKING_GAMES = [
     ('teclado', 'Keyboard Hero'),
     ('raton', 'Mouse Master'),
@@ -38,7 +38,7 @@ def load_rankings():
         except (json.JSONDecodeError, OSError):
             users = []
 
-    # Llegim les puntuacions guardades al fitxer separat.
+    # Llegim les puntuacions des de l'emmagatzematge configurat.
     scores_by_user = score_storage.get_scores_map()
     rankings = []
 
@@ -92,7 +92,7 @@ def validate_move():
     shape_name = data.get('shape_name')
     target_name = data.get('target_name')
 
-    # Creo la figura i faig servir el seu mètode per validar el forat.
+    # Creo la figura i faig servir el seu metode per validar el forat.
     shape = ComplexShape("dummy_color", shape_name, 0)
     is_valid = shape.validate_drop(target_name)
 
@@ -101,7 +101,7 @@ def validate_move():
 
 @app.route('/api/save_score', methods=['POST'])
 def save_score():
-    # Guardo la millor puntuació del drag & drop al mateix fitxer que la resta de jocs.
+    # Guardo la millor puntuacio del drag & drop al ranking compartit.
     data = request.get_json() or {}
     points = data.get('score', 0)
 
@@ -131,32 +131,33 @@ def save_score():
 def perfil():
     from models.storage import Storage
     storage = Storage(os.path.join(app.root_path, 'data', 'results.json'))
-    
+
     if 'username' not in session:
         return redirect(url_for('auth.login'))
-        
+
     usuari = storage.get_user(session['username'])
-    
+
     if request.method == 'POST':
         noves_anotacions = request.form.get('anotacions', '')
         es_vist = True if request.form.get('vist') else False
-        
+
         usuari.set_anotacions(noves_anotacions)
         usuari.vist = es_vist
-        
+
         users = storage.load_users()
         for i, u in enumerate(users):
             if u.username == usuari.username:
                 users[i] = usuari
                 break
         storage.save_users(users)
-        
+
     return render_template('perfil.html', usuari=usuari)
 
 
 @app.route('/ranking')
 def ranking():
     return render_template('ranking.html', rankings=load_rankings())
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

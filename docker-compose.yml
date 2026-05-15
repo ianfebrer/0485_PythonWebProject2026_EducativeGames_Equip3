@@ -6,8 +6,10 @@ services:
     container_name: educative_games_app
     ports:
       - "5000:5000"
+    environment:
+      MONGODB_URI: ${MONGODB_URI:-}
+      MONGODB_DB_NAME: ${MONGODB_DB_NAME:-educative_games}
+      MONGODB_COLLECTION: ${MONGODB_COLLECTION:-game_scores}
     volumes:
-      # Pujem la persistència del json fora del contenidor cap al host
-      # d'aquesta forma no perdem dades de puntuació si el destuïm
       - ./data:/app/data
     restart: always
