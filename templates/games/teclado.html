@@ -3,11 +3,13 @@
 {% block title %}Joc de Mecanografia - Xampinyó's League{% endblock %}
 
 {% block content %}
-<div class="game-board">
-    <div class="game-card" style="max-width: 800px; margin: 0 auto; width: 100%;">
-        <h2>Joc de Mecanografia ⌨️</h2>
-        <p>Escriu la frase el més ràpid i sense errors que puguis!</p>
+<section class="hero game-hero">
+    <h1>Joc de Mecanografia</h1>
+    <p>Escriu la frase el mes rapid possible i completa la partida sense cometre errors.</p>
+</section>
 
+<div class="game-board keyboard-game-board">
+    <div class="game-card keyboard-game-card">
         <div class="typing-area">
             <div id="frase-display" class="phrase-display">
                 Prem "Començar Partida" per rebre una frase.
@@ -16,12 +18,12 @@
             <input type="text" id="typing-input" class="typing-input" disabled autocomplete="off" placeholder="Escriu aquí...">
         </div>
 
-        <div class="game-stats" style="margin-top: 1.5rem; display: flex; justify-content: space-between;">
+        <div class="game-stats">
             <p>Errors: <span id="errors-display" style="color: #ef4444; font-weight: bold;">0</span></p>
             <p>Lletres: <span id="progress-display" style="color: var(--accent); font-weight: bold;">0/0</span></p>
         </div>
 
-        <div class="form-actions" style="margin-top: 2rem;">
+        <div class="form-actions keyboard-actions">
             <button id="btn-start" class="btn w-100">Començar Partida</button>
         </div>
 
