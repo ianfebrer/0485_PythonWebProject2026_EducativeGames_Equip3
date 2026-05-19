@@ -54,5 +54,12 @@
         "total_score": 0,
         "anotacions": "ahl\u00f1jfdlks\u00f1jfdsalk",
         "vist": false
+    },
+    {
+        "username": "amin",
+        "password": "scrypt:32768:8:1$i6sBeZTR87OZPUva$813aae796fe985ebe28c1e27ccb68c326bfd08e5da104561aeb092afd6ea59c5212cc8b11d4e3499616697821e74621076c06a2ebaae5e487f20cda6381af5ba",
+        "total_score": 0,
+        "anotacions": "",
+        "vist": false
     }
 ]

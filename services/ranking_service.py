@@ -1,26 +1,23 @@
-from config import RANKING_GAMES, SCORES_FILE, USERS_FILE
+from config import RANKING_GAMES
 from storage.score_storage import ScoreStorage
-from storage.user_storage import UserStorage
 
 
 class RankingService:
-    def __init__(self, user_storage=None, score_storage=None):
-        self.user_storage = user_storage or UserStorage(str(USERS_FILE))
-        self.score_storage = score_storage or ScoreStorage(str(SCORES_FILE))
+    def __init__(self, score_storage=None):
+        self.score_storage = score_storage or ScoreStorage()
 
     def load_rankings(self):
-        users = self.user_storage.load_users()
         scores_by_user = self.score_storage.get_scores_map()
         rankings = []
 
         for game_key, game_title in RANKING_GAMES:
             rows = []
 
-            for user in users:
+            for username, user_scores in scores_by_user.items():
                 rows.append(
                     {
-                        "username": user.username,
-                        "points": scores_by_user.get(user.username, {}).get(game_key, 0),
+                        "username": username,
+                        "points": user_scores.get(game_key, 0),
                     }
                 )
 

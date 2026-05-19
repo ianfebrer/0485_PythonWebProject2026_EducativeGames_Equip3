@@ -1,10 +1,9 @@
-from config import SCORES_FILE
 from storage.score_storage import ScoreStorage
 
 
 class ScoreService:
     def __init__(self, score_storage=None):
-        self.score_storage = score_storage or ScoreStorage(str(SCORES_FILE))
+        self.score_storage = score_storage or ScoreStorage()
 
     def save_best_score(self, username, game_key, points):
         return self.score_storage.update_user_score(username, game_key, points)
