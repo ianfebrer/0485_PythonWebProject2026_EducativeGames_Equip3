@@ -21,6 +21,20 @@ class User(db.Model):
     def check_password(self, password_attempt):
         return check_password_hash(self.password_hash, password_attempt)
 
+    @property
+    def vist(self):
+        return getattr(self, '_vist', False)
+    
+    @vist.setter
+    def vist(self, value):
+        self._vist = value
+
+    def get_anotacions(self):
+        return getattr(self, '_anotacions', "")
+
+    def set_anotacions(self, text):
+        self._anotacions = text
+
     def to_dict(self):
         return {
             "id": self.id,
