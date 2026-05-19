@@ -16,6 +16,9 @@ from routes.main_routes import main_bp
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f00198c (Resolts confictes al merge de app.py)
 def create_app():
     app = Flask(__name__)
     app.secret_key = SECRET_KEY
@@ -30,7 +33,10 @@ app = create_app()
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> f00198c (Resolts confictes al merge de app.py)
 app = Flask(__name__)
 app.secret_key = 'clau_secreta_super_segura_per_educative_game'
 
