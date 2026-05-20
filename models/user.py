@@ -1,18 +1,27 @@
-from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from extensions import db
 
+
 class User(db.Model):
-    __tablename__ = 'usuaris'
-    
+    __tablename__ = "usuaris"
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
+    total_score = db.Column(db.Integer, default=0)
+    anotacions = db.Column(db.Text, default="")
+    vist = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, username, password, is_hashed=False):
+    def __init__(self, username, password, total_score=0, is_hashed=False, anotacions="", vist=False):
         self.username = username
+        self.total_score = total_score
+        self.anotacions = anotacions
+        self.vist = vist
+
         if is_hashed:
             self.password_hash = password
         else:
@@ -21,29 +30,28 @@ class User(db.Model):
     def check_password(self, password_attempt):
         return check_password_hash(self.password_hash, password_attempt)
 
-    @property
-    def vist(self):
-        return getattr(self, '_vist', False)
-    
-    @vist.setter
-    def vist(self, value):
-        self._vist = value
+    def add_score(self, points):
+        self.total_score += points
 
     def get_anotacions(self):
-        return getattr(self, '_anotacions', "")
+        return self.anotacions or ""
 
-    def set_anotacions(self, text):
-        self._anotacions = text
+    def set_anotacions(self, anotacions):
+        self.anotacions = anotacions
 
     def to_dict(self):
         return {
             "id": self.id,
             "username": self.username,
-            "created_at": self.created_at.isoformat() if self.created_at else None
+            "total_score": self.total_score,
+            "anotacions": self.get_anotacions(),
+            "vist": self.vist,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
         }
 
     def __str__(self):
         return f"User: {self.username} | Score: {self.total_score}"
+<<<<<<< HEAD
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User:
@@ -71,3 +79,5 @@ class User:
 
     def __str__(self):
         return f"User: {self.username}"
+=======
+>>>>>>> e90c375 (Actualización del readme)
