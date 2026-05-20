@@ -10,20 +10,6 @@ El proyecto contiene tres minijuegos:
 
 ## Cambios principales del proyecto
 
-<<<<<<< HEAD
-Esta version reorganiza el proyecto original en una estructura mas mantenible y separa responsabilidades por capas:
-
-- `routes/`: blueprints de Flask para autenticacion, paginas principales y APIs de juegos.
-- `services/`: logica de perfil, ranking y guardado de puntuaciones.
-- `storage/`: acceso a datos de usuarios y puntuaciones.
-- `games/`: logica propia de cada minijuego.
-- `templates/` y `static/`: interfaz HTML, CSS y JavaScript.
-
-Tambien se han incorporado mejoras visuales importantes respecto a la base original:
-
-- Redisenyo global de `static/css/styles.css`.
-- Plantillas de login, registro, pagina inicial y juegos con estilos mas coherentes.
-=======
 Esta version profesionaliza la estructura original y separa responsabilidades por capas:
 
 - `routes/`: blueprints de Flask para autenticacion, paginas principales y APIs de juegos.
@@ -37,24 +23,11 @@ Tambien se han incorporado mejoras visuales importantes:
 
 - Redisenyo global de `static/css/styles.css`.
 - Plantillas de login, registro, pagina inicial, perfil, ranking y juegos con estilos mas coherentes.
->>>>>>> e90c375 (Actualización del readme)
 - Pantallas de juego mas completas para teclado, raton y drag and drop.
 - Navegacion comun mediante `templates/base.html`.
 
 ## Persistencia de datos
 
-<<<<<<< HEAD
-El estado actual de esta rama usa dos sistemas de persistencia:
-
-- Usuarios y perfil: `data/results.json`.
-- Ranking y mejores puntuaciones: MongoDB externo si esta configurado; si no, fallback local en `data/scores.json`.
-
-La capa de puntuaciones mantiene una API interna estable mediante `ScoreStorage`, `ScoreService` y `RankingService`, por lo que las rutas de los juegos solo envian el nombre del usuario, el juego y la puntuacion obtenida.
-
-### MongoDB para ranking
-
-La configuracion de MongoDB se lee desde variables de entorno:
-=======
 El proyecto usa dos bases de datos segun el tipo de informacion:
 
 - Usuarios y perfil: MariaDB remota mediante Flask-SQLAlchemy y PyMySQL.
@@ -104,17 +77,11 @@ La capa `storage/user_storage.py` encapsula las operaciones de usuario:
 ## MongoDB para ranking
 
 Las puntuaciones de los juegos se guardan en MongoDB. La configuracion se lee desde variables de entorno:
->>>>>>> e90c375 (Actualización del readme)
 
 - `MONGODB_URI`: cadena de conexion.
 - `MONGODB_DB_NAME`: nombre de base de datos. Por defecto, `educative_games`.
 - `MONGODB_COLLECTION`: coleccion de puntuaciones. Por defecto, `game_scores`.
 
-<<<<<<< HEAD
-Si `MONGODB_URI` no existe o contiene credenciales placeholder, la aplicacion usa `data/scores.json`.
-
-Cuando MongoDB esta configurado y la coleccion esta vacia, `storage/score_storage.py` importa automaticamente los datos existentes de `data/scores.json`.
-=======
 `storage/score_storage.py` crea un indice unico por `username` y guarda las mejores puntuaciones por usuario en un mapa con estas claves:
 
 - `teclado`
@@ -122,7 +89,6 @@ Cuando MongoDB esta configurado y la coleccion esta vacia, `storage/score_storag
 - `drag_drop`
 
 El ranking muestra la mejor puntuacion de cada usuario por juego y ordena por puntuacion descendente.
->>>>>>> e90c375 (Actualización del readme)
 
 ## Instalacion local
 
@@ -139,11 +105,7 @@ Instalar dependencias:
 pip install -r requirements.txt
 ```
 
-<<<<<<< HEAD
-Crear un archivo `.env` si se quiere configurar MongoDB:
-=======
 Crear un archivo `.env` para MongoDB:
->>>>>>> e90c375 (Actualización del readme)
 
 ```env
 MONGODB_URI=mongodb+srv://usuario:password@cluster/...
@@ -171,11 +133,7 @@ El proyecto incluye `Dockerfile` y `docker-compose.yml`.
 docker compose up --build
 ```
 
-<<<<<<< HEAD
-El contenedor expone el puerto `5000` y monta `./data` dentro de `/app/data` para conservar los JSON locales.
-=======
 El contenedor expone el puerto `5000` y recibe la configuracion de MongoDB desde variables de entorno.
->>>>>>> e90c375 (Actualización del readme)
 
 ## Rutas principales
 
@@ -205,16 +163,6 @@ El contenedor expone el puerto `5000` y recibe la configuracion de MongoDB desde
 .
 ├── app.py
 ├── config.py
-<<<<<<< HEAD
-├── data/
-│   ├── results.json
-│   └── scores.json
-├── games/
-├── models/
-├── routes/
-├── services/
-├── storage/
-=======
 ├── extensions.py
 ├── games/
 ├── models/
@@ -224,7 +172,6 @@ El contenedor expone el puerto `5000` y recibe la configuracion de MongoDB desde
 ├── storage/
 │   ├── user_storage.py
 │   └── score_storage.py
->>>>>>> e90c375 (Actualización del readme)
 ├── static/
 ├── templates/
 ├── Dockerfile
@@ -234,15 +181,8 @@ El contenedor expone el puerto `5000` y recibe la configuracion de MongoDB desde
 
 ## Observaciones tecnicas
 
-<<<<<<< HEAD
-- Las contrasenas de usuario se guardan hasheadas mediante Werkzeug.
-- El ranking guarda solo la mejor puntuacion por usuario y juego.
-- Si un usuario no ha jugado a un juego, su puntuacion aparece como `0`.
-- La sesion de Flask se usa para identificar al usuario autenticado durante el guardado de resultados.
-=======
 - Las contrasenas de usuario no se guardan en texto plano; se almacenan hasheadas.
 - MariaDB gestiona usuarios, login y datos de perfil.
 - MongoDB gestiona las mejores puntuaciones y el ranking.
 - La sesion de Flask identifica al usuario autenticado durante el guardado de resultados.
 - `storage/user_storage.py` mantiene un parametro `file_path` por compatibilidad con codigo anterior, pero ya no usa JSON para guardar usuarios.
->>>>>>> e90c375 (Actualización del readme)
