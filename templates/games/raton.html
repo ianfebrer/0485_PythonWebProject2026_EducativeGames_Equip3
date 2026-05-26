@@ -3,12 +3,12 @@
 {% block title %}Mouse Master | The Xampinyo's League{% endblock %}
 
 {% block content %}
-<section class="hero">
+<section class="hero game-hero">
     <h1>Mouse Master</h1>
     <p>Mou el ratoli, observa l'objectiu i fes clic sobre la figura correcta tan rapid com pugues.</p>
 </section>
 
-<section class="auth-container">
+<section class="auth-container mouse-game-container">
     <div class="auth-box mouse-game-shell">
         <div class="mouse-game-topbar">
             <div class="mouse-game-target">
@@ -79,7 +79,7 @@
 
         <div class="mouse-game-actions">
             <button type="button" class="btn" id="start-mouse-game">Comencar ronda</button>
-            <a href="{{ url_for('index') }}" class="btn btn-secondary">Tornar a l'inici</a>
+            <a href="{{ url_for('main.index') }}" class="btn btn-secondary">Tornar a l'inici</a>
         </div>
     </div>
 </section>

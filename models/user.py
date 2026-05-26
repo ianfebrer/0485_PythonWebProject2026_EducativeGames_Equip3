@@ -1,13 +1,64 @@
-from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
-class User:
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from extensions import db
+
+
+class User(db.Model):
+    __tablename__ = "usuaris"
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    total_score = db.Column(db.Integer, default=0)
+    anotacions = db.Column(db.Text, default="")
+    vist = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
     def __init__(self, username, password, total_score=0, is_hashed=False, anotacions="", vist=False):
         self.username = username
         self.total_score = total_score
-        
-        self.__anotacions = anotacions
+        self.anotacions = anotacions
         self.vist = vist
-        
+
+        if is_hashed:
+            self.password_hash = password
+        else:
+            self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password_attempt):
+        return check_password_hash(self.password_hash, password_attempt)
+
+    def add_score(self, points):
+        self.total_score += points
+
+    def get_anotacions(self):
+        return self.anotacions or ""
+
+    def set_anotacions(self, anotacions):
+        self.anotacions = anotacions
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "total_score": self.total_score,
+            "anotacions": self.get_anotacions(),
+            "vist": self.vist,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+    def __str__(self):
+        return f"User: {self.username} | Score: {self.total_score}"
+<<<<<<< HEAD
+from werkzeug.security import generate_password_hash, check_password_hash
+
+class User:
+    def __init__(self, username, password, total_score=0, is_hashed=False):
+        self.username = username
+        self.total_score = total_score
+
         if is_hashed:
             self.password = password
         else:
@@ -19,28 +70,14 @@ class User:
     def add_score(self, points):
         self.total_score += points
 
-    def get_anotacions(self):
-        return self.__anotacions
-
-    def set_anotacions(self, text):
-        self.__anotacions = text
-
     def to_dict(self):
         return {
             "username": self.username,
             "password": self.password,
-            "total_score": self.total_score,
-            "anotacions": self.get_anotacions(),
-            "vist": self.vist
+            "total_score": self.total_score
         }
 
     def __str__(self):
-        return f"User: {self.username} | Total Score: {self.total_score}"
-
-class Alumne(User):
-    def __init__(self, username, password, total_score=0, is_hashed=False, anotacions="", vist=False):
-        super().__init__(username, password, total_score, is_hashed, anotacions, vist)
-
-class Professor(User):
-    def __init__(self, username, password, total_score=0, is_hashed=False, anotacions="", vist=False):
-        super().__init__(username, password, total_score, is_hashed, anotacions, vist)
+        return f"User: {self.username}"
+=======
+>>>>>>> e90c375 (Actualización del readme)

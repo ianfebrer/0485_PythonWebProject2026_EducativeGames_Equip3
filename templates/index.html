@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}Inici | Educative Gamer{% endblock %}
+{% block main_class %}home-main{% endblock %}
 
 {% block content %}
 <section class="hero">
@@ -23,7 +24,7 @@
         <span class="game-icon">🖱️</span>
         <h3>Mouse Master</h3>
         <p>Ets ràpid amb el ratolí? Demostra la teva precisió movent el cursor per interactuar amb la pantalla netejant la zona.</p>
-        <a href="{{ url_for('joc_rato') }}" class="btn btn-secondary">Jugar ara</a>
+        <a href="{{ url_for('main.joc_rato') }}" class="btn btn-secondary">Jugar ara</a>
     </div>
 
     <div class="game-card">
@@ -31,7 +32,7 @@
         <h3>Drag & Drop</h3>
         <p>Arrossega i solta cadascuna de les figures geomètriques complexes al seu lloc corresponent de forma precisa i
             al primer intent.</p>
-        <a href="{{ url_for('drag_and_drop') }}" class="btn btn-accent">Jugar ara</a>
+        <a href="{{ url_for('main.drag_and_drop') }}" class="btn btn-accent">Jugar ara</a>
     </div>
 </div>
 {% endblock %}
